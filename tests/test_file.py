@@ -13,9 +13,10 @@ from custom_components.multiscrape.file import (LoggingFileManager,
 @pytest.mark.integration
 @pytest.mark.async_test
 @pytest.mark.timeout(10)
-async def test_create_file_manager_with_logging_enabled(hass: HomeAssistant):
+async def test_create_file_manager_with_logging_enabled(hass: HomeAssistant, tmp_path):
     """Test create_file_manager creates file manager when log_response is True."""
     # Arrange
+    hass.config.config_dir = str(tmp_path)
     config_name = "test_config"
 
     # Act
@@ -45,9 +46,10 @@ async def test_create_file_manager_with_logging_disabled(hass: HomeAssistant):
 @pytest.mark.integration
 @pytest.mark.async_test
 @pytest.mark.timeout(10)
-async def test_create_file_manager_slugifies_config_name(hass: HomeAssistant):
+async def test_create_file_manager_slugifies_config_name(hass: HomeAssistant, tmp_path):
     """Test create_file_manager slugifies config name with spaces and special chars."""
     # Arrange
+    hass.config.config_dir = str(tmp_path)
     config_name = "Test Config With Spaces!"
 
     # Act

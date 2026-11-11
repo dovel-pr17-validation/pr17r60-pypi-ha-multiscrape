@@ -145,7 +145,9 @@ async def coordinator(
         scraper=scraper,
         update_interval=timedelta(seconds=60),
     )
-    return coordinator
+    yield coordinator
+    # Cancel the scheduled refresh and debouncer timers so none outlive the test
+    await coordinator.async_shutdown()
 
 
 @pytest.fixture
